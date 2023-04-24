@@ -1,7 +1,8 @@
 import psycopg2
 
 from cliente.sql import SQLCliente
-
+from livro.sql import SQlLivro
+from aluguel.sql import SQLAluguel
 class ConnectDataBase:
     def __init__(self):
         self._connect = psycopg2.connect(
@@ -18,6 +19,8 @@ class ConnectDataBase:
         cursor = self._connect.cursor()
         cursor = self._connect.cursor()
         cursor.execute(SQLCliente._SCRIPT_CREATE_TABLE)
+        cursor.execute(SQlLivro._SCRIPT_CREATE_TABLE)
+        cursor.execute(SQlLivro._SCRIPT_CREATE_TABLE)
         self._connect.commit()
 
     def sql_new(self):

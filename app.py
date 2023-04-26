@@ -7,11 +7,15 @@ from cliente.dao import DaoCliente
 from livro.modelo import Livro
 from livro.dao import DaoLivro
 
+from aluguel.dao import DaoAluguel
+from aluguel.modelo import Aluguel
+
 app = Flask(__name__)
 ConnectDataBase().init_table()
 
 dao_cliente = DaoCliente()
 dao_livro = DaoLivro()
+dao_aluguel = DaoAluguel()
 
 @app.route('/cliente/add/', methods=['POST'])
 def add_cliente():
@@ -82,5 +86,26 @@ def atualizar_livro(id: int):
     if dao_livro.atualizar(livro):
         return make_response(jsonify(livro.get_json()))
     return Response({}, status=404)
+
+@app.route('/cliente/<int:id_cliente>/livro/<int: id_livro/aluguel/add/', methods=['POST'])
+def add_aluguel(id_cliente: int, id_livro: int):
+    cliente = dao_cliente.get_by_id(id_cliente)
+    if not cliente:
+        return Response({}, status=404)
+    livro = dao_livro.get_by_id(id_livro)
+    if not livro:
+        return Response({}, status=404)
+    data_aluguel = dict(request.form)
+    aluguel = Aluguel(cliente= cliente, livro = livro,**data_aluguel)
+    id = dao_aluguel.salvar(aluguel)
+    return make_response(jsonify(aluguel.get_json()))
+
+@app.route('/cliente/<int:id>/alugueis/', methods=['GET'])
+def clientes_alugueis(id: int):
+    cliente = dao_cliente.get_by_id(id)
+    if not cliente:
+        return Response({}, status=404)
+    alugueis = dao_aluguel.get_por_cliente(cliente.id)
+    return make_response(jsonify(alugueis))
 
 app.run()

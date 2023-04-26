@@ -20,7 +20,7 @@ class ConnectDataBase:
         cursor = self._connect.cursor()
         cursor.execute(SQLCliente._SCRIPT_CREATE_TABLE)
         cursor.execute(SQlLivro._SCRIPT_CREATE_TABLE)
-        cursor.execute(SQlLivro._SCRIPT_CREATE_TABLE)
+        cursor.execute(SQLAluguel._SCRIPT_CREATE_TABLE)
         self._connect.commit()
 
     def sql_new(self):

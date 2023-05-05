@@ -4,7 +4,7 @@ class SQlLivro:
     _SCRIPT_CREATE_TABLE = f'CREATE TABLE IF NOT EXISTS {_NOME_TABELA}(' \
                            f'id serial primary key,' \
                            f'nome varchar(255),' \
-                           f'autor varchar(255),'
+                           f'autor varchar(255))'
 
     _SCRIPT_INSERT = f'INSERT INTO {_NOME_TABELA}(nome, autor) ' \
                      f'values(%s,%s) RETURNING id'

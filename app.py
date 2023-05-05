@@ -87,12 +87,12 @@ def atualizar_livro(id: int):
         return make_response(jsonify(livro.get_json()))
     return Response({}, status=404)
 
-@app.route('/cliente/<int:id_cliente>/livro/<int: id_livro/aluguel/add/', methods=['POST'])
-def add_aluguel(id_cliente: int, id_livro: int):
-    cliente = dao_cliente.get_by_id(id_cliente)
+@app.route('/cliente/<int:idCliente>/livro/<int:idLivro>/aluguel/add/', methods=['POST'])
+def add_aluguel(idCliente: int, idLivro: int):
+    cliente = dao_cliente.get_by_id(idCliente)
     if not cliente:
         return Response({}, status=404)
-    livro = dao_livro.get_by_id(id_livro)
+    livro = dao_livro.get_by_id(idLivro)
     if not livro:
         return Response({}, status=404)
     data_aluguel = dict(request.form)
